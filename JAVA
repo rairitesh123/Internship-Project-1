@@ -1,0 +1,80 @@
+package com.company;
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+class Student implements Comparable<Student>
+{
+    int token;
+    String name;
+    double cg;
+    public Student(int id, String name, double cg) {
+        super();
+        this.token = id;
+        this.name = name;
+        this.cg = cg;
+    }
+    public int getToken() {
+        return token;
+    }
+    public String getname() {
+        return name;
+    }
+    public double getCg() {
+        return cg;
+    }
+    public int compareTo(Student s)
+    {
+        if(Double.compare(this.cg,s.cg)!=0)
+        {
+            return -Double.compare(this.cg,s.cg);
+        }
+        else if(this.name.compareTo(s.name)!=0)
+        {
+            if(this.name.compareTo(s.name)>0)
+                return 1;
+            else
+                return -1;
+        }
+        else
+            return Integer.compare(this.token,s.token);
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int totalEvents = Integer.parseInt(in.nextLine());
+        PriorityQueue<Student>pq=new PriorityQueue<Student>();
+        while(totalEvents>0){
+            String e = in.next();
+            if(e.compareTo("SERVED")==0)
+            {
+                Student s=pq.poll();
+            }
+            else
+            {
+                String n = in.next();
+                double d=in.nextDouble();
+                int t=in.nextInt();
+                Student s=new Student(t,n,d);
+                pq.add(s);
+            }
+
+            totalEvents--;
+        }
+        if(pq.isEmpty())
+            System.out.println("EMPTY");
+        else
+        {
+            while(!pq.isEmpty())
+            {
+                Student s=pq.poll();
+                System.out.println(s.name);
+            }
+        }
+    }
+}
